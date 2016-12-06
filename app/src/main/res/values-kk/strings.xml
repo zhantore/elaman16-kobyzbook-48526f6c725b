@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">KoobyzBook</string>
+
+    <!-- DataBase Name And Version -->
+    <string name="DataBaseName_Version">1</string>
+    <string name="DataBaseName">DMPlayer</string>
+
+    <string name="about">Material Design App, is an app designed by Javier Segovia Córdoba</string>
+    <string name="action_about">About</string>
+    <string name="website">desarrollador-android.com</string>
+    <string name="github">GitHub: github.com/dahnark</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+        eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
+        sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+        qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
+        sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+        Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+        vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</string>
+    <string name="title_activity_news_detail">NewsDetail</string>
+
+
+    <!--Navigation drawer-->
+    <string name="kirispe">Kipicпе</string>
+    <string name="about_qobyz">Қобыз туралы</string>
+    <string name="persons">Қобызшылар</string>
+    <string name="lessons">Сабақтар</string>
+    <string name="audio">Аудио</string>
+    <string name="beine_sabaqtar">Бейне сабақтар</string>
+    <string name="test">Пысықтау сұрақтары</string>
+    <string name="autor">Автор</string>
+    <string name="zhoba_turaly">Жоба туралы</string>
+    <string name="settings">Баптаулар</string>
+    <string name="news">Жаңалықтар</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+    <string name="play_item">Play item</string>
+    <string name="currently_playing_song">Song curently playing</string>
+    <string name="currently_playing_artist">Artist curently playing</string>
+    <string name="currently_playing_extra_info">Extra info</string>
+    <string name="play_pause">Play Pouse</string>
+    <string name="design">Design</string>
+    <string name="develop">Develop</string>
+    <string name="menu_header">menu header</string>
+    <string name="score11">/10</string>
+    <string name="mail">Mail</string>
+    <!--URLS-->
+    <!--<string name="URL_ABOUT_QOBYZ">http://zhaksy-adam.azurewebsites.net/api/Requisitions/GetAll?id=2&amp;page=1&amp;count=10</string>-->
+
+    <string name="setting_lang">Тіл</string>
+    <string name="lang">Қазақ</string>
+    <string name="new_person">Қазіргі заман қобызшылары</string>
+    <string name="old_person">Тарихи тұлғалар</string>
+
+    <string name="no_internet">Желімен байланыс жоқ</string>
+    <string name="check_internet">Желімен байланысыңызды тексеріңіз</string>
+    <string name="download">Қайталау</string>
+    <string name="wait">Жүктелуде...</string>
+
+    <string name="lessons_qobyz">Қобыз күйлері</string>
+    <string name="lessons_dombyra">Домбыра күйлері</string>
+    <string name="lessons_song">Әндері</string>
+    <string name="kuishiler">Күйшілер</string>
+    <string name="kuiler">Күйлер</string>
+
+    <string name="about_qobyz_a">Қобыз этимологисясы</string>
+    <string name="about_qobyz_b">Қобыз типологися</string>
+    <string name="about_qobyz_c">Қобыз түрлері</string>
+    <string name="about_qobyz_d">Қобыздың құрылысы</string>
+    <string name="about_qobyz_e">Қобызды тарту</string>
+    <string name="about_qobyz_f">Қобыздың зерттелуі</string>
+    <string name="about_qobyz_g">Оқулықтар мен ғылыми әдебиеттер</string>
+    <string name="error">Жүктеу кезіндегі қате, қайта көріңіз</string>
+    <string name="soon">Бос бет</string>
+    <string name="no_connect">Байланыс жоқ</string>
+    <string name="count_kui"> куй</string>
+    <string name="allsons">Барлық күйлер</string>
+    <string name="playlist">Күйпарақ</string>
+    <string name="choose_app_theme">Қосымшаның түсқағазы</string>
+    <string name="choose_app_theme_description">Түсқағазды таңдау үшін басыңыз</string>
+    <string name="choose_theme_color">Қосымшаның түсқағазын таңдаңыз</string>
+    <string name="disagree">ОРЫНДАМАУ</string>
+    <string name="agree">ОРЫНДАУ</string>
+    <string name="texts">Text</string>
+    <string name="initialData">Жүктелуде</string>
+    <string name="mark">балл</string>
+    <string name="finishtest">Тестті аяқтау</string>
+    <string name="scored">Сіздің жинаған балыңыз:</string>
+    <string name="anew">қайталау</string>
+    <string name="project_author_life">Автор туралы</string>
+    <string name="project_author_work">Өнербаяны</string>
+    <string name="project_info">Жоба туралы</string>
+    <string name="biography">Өмірбаян</string>
+    <string name="art_life">Өнербаян</string>
+    <string name="achievement">Жетістік</string>
+    <string name="work">Еңбек өтілі </string>
+    <string name="gilim">Еңбектері</string>
+    <string name="shigarma">Шығармашылығы</string>
+    <string name="anyktama">Анықтама тел.:</string>
+    <string name="cansel">Жабу</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="language_array_en" >
+       <item>English</item>
+       <item>Kazakh</item>
+    </string-array>
+    <string-array name="language_array_kz" >
+       <item>Ағылшын</item>
+       <item>Қазақ</item>
+    </string-array>
+
+    <string-array name="lessons_array_en" >
+        <item>Video lesson</item>
+        <item>Kui anyzy</item>
+        <item>Adisteme</item>
+        <item>Audio</item>
+        <item>Note</item>
+        <item>Used books</item>
+    </string-array>
+
+    <string-array name="lessons_array_kz" >
+        <item>Бейне сабақ</item>
+        <item>Күй аңызы</item>
+        <item>Әдістемелік нұсқау</item>
+        <item>Аудио</item>
+        <item>Нота</item>
+        <item>Пайдаланылған әдебиеттер </item>
+    </string-array>
+
+
+
+</resources>

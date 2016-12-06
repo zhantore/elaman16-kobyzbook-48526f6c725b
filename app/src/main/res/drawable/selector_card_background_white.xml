@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:state_pressed="true"
+        android:drawable="@drawable/layer_card_background_selected" />
+    <item
+        android:state_selected="true"
+        android:drawable="@drawable/white_background" />
+
+</selector>
+
+
+    <!--<item-->
+    <!--android:color="hex_color"-->
+    <!--android:state_pressed=["true" | "false"]-->
+    <!--android:state_focused=["true" | "false"]-->
+    <!--android:state_selected=["true" | "false"]-->
+    <!--android:state_checkable=["true" | "false"]-->
+    <!--android:state_checked=["true" | "false"]-->
+    <!--android:state_enabled=["true" | "false"]-->
+    <!--android:state_window_focused=["true" | "false"] />-->
