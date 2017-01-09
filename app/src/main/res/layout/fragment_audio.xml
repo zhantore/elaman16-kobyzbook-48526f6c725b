@@ -2,34 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/audio"
     android:layout_height="match_parent">
     <View
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/cpv_default_color"
         android:minHeight="?attr/actionBarSize"
         android:id="@+id/view" />
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_below="@+id/statusBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            android:background="@color/cpv_default_color"
+            android:translationZ="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
     </android.support.design.widget.AppBarLayout>
 
     <ListView
         android:id="@+id/recycler_allSongs"
-        android:background="@android:color/black"
-        android:alpha="0.8"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:listSelector="@drawable/bar_selector_white"
-        android:scrollbars="none"
+        android:dividerHeight="-1dp"
         android:layout_marginBottom="8dp"
         android:layout_below="@+id/view" />
 
@@ -66,14 +65,14 @@
                 android:text="@string/no_internet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"/>
             <TextView
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/internet_text1"
                 android:id="@+id/internet_text2"
                 android:text="@string/check_internet"
-                android:textColor="@color/text_color"
+                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15sp"/>
@@ -113,7 +112,7 @@
             android:layout_below="@+id/progress_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
+            android:textColor="@android:color/black"
             android:textSize="16sp"
             android:text="@string/wait"
             android:layout_centerHorizontal="true"

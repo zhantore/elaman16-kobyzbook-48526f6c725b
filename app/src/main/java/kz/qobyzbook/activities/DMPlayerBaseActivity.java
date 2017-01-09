@@ -7,7 +7,6 @@ package kz.qobyzbook.activities;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +20,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,45 +29,21 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
-import kz.qobyzbook.A_AboutQobyz.QobyzFragment;
-import kz.qobyzbook.ApplicationDMPlayer;
-import kz.qobyzbook.C_Lessons.LessonFragment;
-import kz.qobyzbook.C_Lessons.LessonNote;
-import kz.qobyzbook.D_AudioLesson.FragmentAudioLesson;
-import kz.qobyzbook.E_VideoLesson.FragmentVideoLessons;
-import kz.qobyzbook.F_Test.FragmentTest;
-import kz.qobyzbook.H_Project.FragmentProject;
-import kz.qobyzbook.I_Settings.DialogLanguage;
-import kz.qobyzbook.I_Settings.FragmentSettings;
-import kz.qobyzbook.R;
-import kz.qobyzbook.a_author.FragmentAuthor;
-import kz.qobyzbook.a_kirispe.FragmentKirispe;
-import kz.qobyzbook.a_news.FragmentNews;
-import kz.qobyzbook.adapter.DrawerAdapter;
-import kz.qobyzbook.fragments.FragmentDrawer;
-import kz.qobyzbook.fragments.FragmentFavorite;
-import kz.qobyzbook.B_Persons.PersonsFragment;
-import kz.qobyzbook.manager.MediaController;
-import kz.qobyzbook.manager.MusicPreferance;
-import kz.qobyzbook.manager.NotificationManager;
-import kz.qobyzbook.models.SongDetail;
-import kz.qobyzbook.phonemidea.DMPlayerUtility;
-import kz.qobyzbook.slidinguppanelhelper.SlidingUpPanelLayout;
-import kz.qobyzbook.uicomponent.CircleImageView;
-import kz.qobyzbook.uicomponent.PlayPauseView;
-import kz.qobyzbook.uicomponent.Slider;
-import kz.qobyzbook.utility.LogWriter;
-
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
@@ -79,6 +55,35 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import kz.qobyzbook.A_AboutQobyz.QobyzFragment;
+import kz.qobyzbook.ApplicationDMPlayer;
+import kz.qobyzbook.B_Persons.PersonsFragment;
+import kz.qobyzbook.C_Lessons.LessonFragment;
+import kz.qobyzbook.C_Lessons.LessonNote;
+import kz.qobyzbook.D_AudioLesson.FragmentAudioLesson;
+import kz.qobyzbook.E_VideoLesson.FragmentVideoLessons;
+import kz.qobyzbook.F_Test.FragmentTest;
+import kz.qobyzbook.H_Project.FragmentAboutProject;
+import kz.qobyzbook.H_Project.FragmentProject;
+import kz.qobyzbook.R;
+import kz.qobyzbook.a_author.FragmentAuthor;
+import kz.qobyzbook.a_kirispe.FragmentKirispe;
+import kz.qobyzbook.a_news.FragmentNews;
+import kz.qobyzbook.adapter.DrawerAdapter;
+import kz.qobyzbook.fragments.FragmentDrawer;
+import kz.qobyzbook.fragments.FragmentFavorite;
+import kz.qobyzbook.manager.MediaController;
+import kz.qobyzbook.manager.MusicPreferance;
+import kz.qobyzbook.manager.NotificationManager;
+import kz.qobyzbook.models.SongDetail;
+import kz.qobyzbook.phonemidea.DMPlayerUtility;
+import kz.qobyzbook.slidinguppanelhelper.SlidingUpPanelLayout;
+import kz.qobyzbook.uicomponent.CircleImageView;
+import kz.qobyzbook.uicomponent.PlayPauseView;
+import kz.qobyzbook.uicomponent.Slider;
+import kz.qobyzbook.utility.LogWriter;
+
+import static java.lang.Thread.sleep;
 import static kz.qobyzbook.manager.NotificationManager.audioDidStarted;
 
 
@@ -131,6 +136,9 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
     private FragmentDrawer drawerFragment;
     RelativeLayout rl_zero, rl_one, rl_two, rl_three, rl_four, rl_five, rl_six, rl_seven, rl_eight, rl_nine, rl_ten;
     TextView tv_zero, tv_one, tv_two, tv_three, tv_four, tv_five, tv_six, tv_seven, tv_eight, tv_nine, tv_ten;
+    TextSwitcher textSwitcher;
+    String textToShow[] = null;
+    Integer currentIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +150,8 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(kz.qobyzbook.R.layout.activity_dmplayerbase);
 
+        String token = FirebaseInstanceId.getInstance().getToken();
+        String id = FirebaseInstanceId.getInstance().getId();
         //System bar color set
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            systembartiteniam();
@@ -149,7 +159,6 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
 
         toolbarStatusBar();
         initiSlidingUpPanel();
-
 
         drawerFragment = (FragmentDrawer) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawerLayout), toolbar);
@@ -167,8 +176,6 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
         super.onResume();
         addObserver();
         loadAlreadyPlayng();
-
-
     }
 
     @Override
@@ -279,8 +286,8 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                         Bundle mBundle = new Bundle();
 
                         if (lang.equals("kk"))
-                            mBundle.putString("name",getResources().getStringArray(R.array.lessons_array_kz)[4]);
-                        else  mBundle.putString("name",getResources().getStringArray(R.array.lessons_array_en)[4]);
+                            mBundle.putString("name",getResources().getStringArray(R.array.lessons_array_kz)[3]);
+                        else  mBundle.putString("name",getResources().getStringArray(R.array.lessons_array_en)[3]);
 
                         mBundle.putString("description", mSongDetail.getImage_url());
                         mIntent.putExtras(mBundle);
@@ -361,6 +368,79 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
         tv_nine = (TextView) findViewById(R.id.tv_nine);
         tv_ten = (TextView) findViewById(R.id.tv_ten);
 
+        setText();
+        textSwitcher = (TextSwitcher)findViewById(R.id.textSwitcher);
+        textSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView myText = new TextView(DMPlayerBaseActivity.this);
+                myText.setGravity(Gravity.CENTER);
+                myText.setTextSize(14);
+                myText.setTextColor(Color.WHITE);
+                return myText;
+            }
+        });
+        // Declare the in and out animations and initialize them
+        Animation in = AnimationUtils.loadAnimation(this,android.R.anim.slide_in_left);
+        Animation out = AnimationUtils.loadAnimation(this,android.R.anim.slide_out_right);
+
+        // set the animation type of textSwitcher
+        textSwitcher.setInAnimation(in);
+        textSwitcher.setOutAnimation(out);
+
+        final Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (this) {
+
+                    while (true) {
+                        currentIndex++;
+                        // If index reaches maximum reset it
+                        if (currentIndex == textToShow.length)
+                            currentIndex = 0;
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                textSwitcher.setText(textToShow[currentIndex]);
+                            }
+                        });
+                        try {
+                            sleep(8000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+        t.start();
+
+    }
+
+    /**
+     * Set text for textSlider
+     */
+    private void setText() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String lang = preferences.getString("lang", "kk");
+
+        if (lang.equals("kk")) {
+            textToShow = new String[]{"Қыз ақылды ескермес-ана үлгісін көрмесе \nҰл жарлықап ас бермес-әке үлгісін көрмесе\n\n(Қорқыт)",
+                    "Адам баласы керуен сияқты: тоқтады, көшті де кетті.\n\n(Қорқыт)",
+                    "Өлгендер қайтып келмейді,\nШыққан жан қайтып енбейді.\n\n(Қорқыт)",
+                    "Қанша қалың жауғанмен,\nҚар көктемде қалмайды.\nГүл жайнаған қалың да,\nҚара күзге қалмайды.\n\n(Қорқыт)",
+                    "Құстың қонар жерін су білер,\nМалдың барар жерін ну білер.\n\n(Қорқыт)",
+                    "Ескі киімнің биті ащы,\nЖетім баланың тілі ащы.\n\n(Қорқыт)"};
+        } else {
+            textToShow = new String[]{"The daughter lacks rationality if she hasn’t seen the role model of mother," +
+                    "\nThe son lacks hospitality if there was no role model of father\n\n(Korkyt)",
+                    "A person is like a caravan: now stopping, now moving.\n\n(Korkyt)",
+                    "The dead don’t return,\nThe soul that left the body doesn’t enter it again.\n\n(Korkyt)",
+                    "However thick the snow is,\nIt will melt in spring.\nAnd the blossoming flowers too\nWill wither in autumn.\n\n(Korkyt)",
+                    "The water knows where the bird settles on\nThe pasture knows where the cattle goes to.\n\n(Korkyt)",
+                    "Lice on worn clothes are bitter,\nWords of orphan are bitter.\n\n(Korkyt)"};
+        }
     }
 
     @Override
@@ -381,6 +461,17 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 fragmentClass = FragmentKirispe.class;
                 toolbar.setTitle(getResources().getString(R.string.kirispe));
 //                drawer.setBackground(getResources().getDrawable(R.drawable.qobyz_turaly));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this,R.color.list_row_hover_start_color));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
                 tv_zero.setTypeface(Typeface.DEFAULT_BOLD);
                 tv_one.setTypeface(Typeface.DEFAULT);
@@ -394,32 +485,34 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 tv_nine.setTypeface(Typeface.DEFAULT);
                 tv_ten.setTypeface(Typeface.DEFAULT);
 
-                tv_zero.setTextColor(Color.WHITE);
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
+                tv_zero.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
             }
             break;
             case 2:
                 fragmentClass = QobyzFragment.class;
                 toolbar.setTitle(getResources().getString(R.string.about_qobyz));
 //                drawer.setBackground(getResources().getDrawable(R.drawable.qobyz_turaly));
-//                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.list_row_hover_start_color));
-//                rl_two.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.list_row_hover_start_color));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
                 tv_one.setTypeface(Typeface.DEFAULT_BOLD);
                 tv_two.setTypeface(Typeface.DEFAULT);
@@ -434,32 +527,34 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 tv_ten.setTypeface(Typeface.DEFAULT);
 
 
-                tv_one.setTextColor(Color.WHITE);
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
+                tv_one.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
                 break;
 
             case 3:
                 fragmentClass = PersonsFragment.class;
                 toolbar.setTitle(getResources().getString(R.string.persons));
 //                drawer.setBackground(getResources().getDrawable(R.drawable.qobyzshylar));
-//                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_two.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
-//                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
                 tv_one.setTypeface(Typeface.DEFAULT);
                 tv_two.setTypeface(Typeface.DEFAULT_BOLD);
@@ -473,32 +568,34 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 tv_zero.setTypeface(Typeface.DEFAULT);
                 tv_ten.setTypeface(Typeface.DEFAULT);
 
-                tv_two.setTextColor(Color.WHITE);
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
+                tv_two.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
                 break;
 
             case 4:
                 fragmentClass = LessonFragment.class;
                 toolbar.setTitle(getResources().getString(R.string.lessons));
 //                drawer.setBackground(getResources().getDrawable(R.drawable.lessons));
-//                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_three.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
-//                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
                 tv_one.setTypeface(Typeface.DEFAULT);
                 tv_two.setTypeface(Typeface.DEFAULT);
@@ -512,71 +609,33 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 tv_zero.setTypeface(Typeface.DEFAULT);
                 tv_ten.setTypeface(Typeface.DEFAULT);
 
-                tv_three.setTextColor(Color.WHITE);
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
+                tv_three.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
                 break;
             case 5: {
-                fragmentClass = FragmentAudioLesson.class;
-                toolbar.setTitle(getResources().getString(R.string.audio));
-//                drawer.setBackground(getResources().getDrawable(R.drawable.audio));
-//                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
-//                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
-                tv_one.setTypeface(Typeface.DEFAULT);
-                tv_two.setTypeface(Typeface.DEFAULT);
-                tv_three.setTypeface(Typeface.DEFAULT);
-                tv_four.setTypeface(Typeface.DEFAULT_BOLD);
-                tv_five.setTypeface(Typeface.DEFAULT);
-                tv_six.setTypeface(Typeface.DEFAULT);
-                tv_seven.setTypeface(Typeface.DEFAULT);
-                tv_eight.setTypeface(Typeface.DEFAULT);
-                tv_nine.setTypeface(Typeface.DEFAULT);
-                tv_zero.setTypeface(Typeface.DEFAULT);
-                tv_ten.setTypeface(Typeface.DEFAULT);
-
-                tv_four.setTextColor(Color.WHITE);
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
-            }
-            break;
-
-            case 6:{
                 fragmentClass = FragmentVideoLessons.class;
                 toolbar.setTitle(getResources().getString(R.string.beine_sabaqtar));
 //                drawer.setBackground(getResources().getDrawable(R.drawable.video));
-//                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
-//                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
                 tv_one.setTypeface(Typeface.DEFAULT);
                 tv_two.setTypeface(Typeface.DEFAULT);
@@ -590,17 +649,60 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 tv_zero.setTypeface(Typeface.DEFAULT);
                 tv_ten.setTypeface(Typeface.DEFAULT);
 
-                tv_five.setTextColor(Color.WHITE);
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
+                tv_five.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
+
+            }
+            break;
+
+            case 6:{
+                fragmentClass = FragmentAudioLesson.class;
+                toolbar.setTitle(getResources().getString(R.string.audio));
+//                drawer.setBackground(getResources().getDrawable(R.drawable.audio));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+
+                tv_one.setTypeface(Typeface.DEFAULT);
+                tv_two.setTypeface(Typeface.DEFAULT);
+                tv_three.setTypeface(Typeface.DEFAULT);
+                tv_four.setTypeface(Typeface.DEFAULT_BOLD);
+                tv_five.setTypeface(Typeface.DEFAULT);
+                tv_six.setTypeface(Typeface.DEFAULT);
+                tv_seven.setTypeface(Typeface.DEFAULT);
+                tv_eight.setTypeface(Typeface.DEFAULT);
+                tv_nine.setTypeface(Typeface.DEFAULT);
+                tv_zero.setTypeface(Typeface.DEFAULT);
+                tv_ten.setTypeface(Typeface.DEFAULT);
+
+                tv_four.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
             }
             break;
 
@@ -608,15 +710,17 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 fragmentClass = FragmentFavorite.class;
                 toolbar.setTitle(getResources().getString(R.string.playlist));
 //                drawer.setBackground(getResources().getDrawable(R.drawable.test));
-//                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
-//                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
                 tv_one.setTypeface(Typeface.DEFAULT);
                 tv_two.setTypeface(Typeface.DEFAULT);
@@ -630,17 +734,17 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 tv_zero.setTypeface(Typeface.DEFAULT);
                 tv_ten.setTypeface(Typeface.DEFAULT);
 
-                tv_six.setTextColor(Color.WHITE);
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
+                tv_six.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
             }
                 break;
 
@@ -648,15 +752,17 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 fragmentClass = FragmentTest.class;
                 toolbar.setTitle(getResources().getString(R.string.test));
 //                drawer.setBackground(getResources().getDrawable(R.drawable.test));
-//                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_six.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
-//                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
                 tv_one.setTypeface(Typeface.DEFAULT);
                 tv_two.setTypeface(Typeface.DEFAULT);
@@ -670,17 +776,17 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 tv_zero.setTypeface(Typeface.DEFAULT);
                 tv_ten.setTypeface(Typeface.DEFAULT);
 
-                tv_seven.setTextColor(Color.WHITE);
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
+                tv_seven.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
             }
             break;
 
@@ -688,6 +794,17 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 fragmentClass = FragmentAuthor.class;
                 toolbar.setTitle(getResources().getString(R.string.autor));
 //                drawer.setBackground(getResources().getDrawable(R.drawable.test));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
                 tv_one.setTypeface(Typeface.DEFAULT);
                 tv_two.setTypeface(Typeface.DEFAULT);
@@ -701,73 +818,35 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 tv_zero.setTypeface(Typeface.DEFAULT);
                 tv_ten.setTypeface(Typeface.DEFAULT);
 
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(Color.WHITE);
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.cpv_default_color));
             }
                 break;
 
             case 10: {
-                fragmentClass = FragmentNews.class;
-                toolbar.setTitle(getResources().getString(R.string.news));
-//                drawer.setBackground(getResources().getDrawable(R.drawable.settings));
-//                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
-//                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-
-                tv_one.setTypeface(Typeface.DEFAULT);
-                tv_two.setTypeface(Typeface.DEFAULT);
-                tv_three.setTypeface(Typeface.DEFAULT);
-                tv_four.setTypeface(Typeface.DEFAULT);
-                tv_five.setTypeface(Typeface.DEFAULT);
-                tv_six.setTypeface(Typeface.DEFAULT);
-                tv_seven.setTypeface(Typeface.DEFAULT);
-                tv_eight.setTypeface(Typeface.DEFAULT);
-                tv_nine.setTypeface(Typeface.DEFAULT_BOLD);
-                tv_zero.setTypeface(Typeface.DEFAULT);
-                tv_ten.setTypeface(Typeface.DEFAULT);
-
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_ten.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(Color.WHITE);
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-            }
-            break;
-
-            case 11: {
-                fragmentClass = FragmentProject.class;
+                fragmentClass = FragmentAboutProject.class;
                 toolbar.setTitle(getResources().getString(R.string.zhoba_turaly));
 //                drawer.setBackground(getResources().getDrawable(R.drawable.about_project));
-//                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
-//                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-//                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
 
                 tv_one.setTypeface(Typeface.DEFAULT);
                 tv_two.setTypeface(Typeface.DEFAULT);
@@ -781,19 +860,61 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 tv_zero.setTypeface(Typeface.DEFAULT);
                 tv_ten.setTypeface(Typeface.DEFAULT_BOLD);
 
-                tv_ten.setTextColor(Color.WHITE);
-                tv_two.setTextColor(getResources().getColor(R.color.text_color));
-                tv_three.setTextColor(getResources().getColor(R.color.text_color));
-                tv_four.setTextColor(getResources().getColor(R.color.text_color));
-                tv_five.setTextColor(getResources().getColor(R.color.text_color));
-                tv_six.setTextColor(getResources().getColor(R.color.text_color));
-                tv_seven.setTextColor(getResources().getColor(R.color.text_color));
-                tv_eight.setTextColor(getResources().getColor(R.color.text_color));
-                tv_one.setTextColor(getResources().getColor(R.color.text_color));
-                tv_zero.setTextColor(getResources().getColor(R.color.text_color));
-                tv_nine.setTextColor(getResources().getColor(R.color.text_color));
+                tv_ten.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.text_color_gray));
             }
-                break;
+            break;
+
+            case 11: {
+                fragmentClass = FragmentNews.class;
+                toolbar.setTitle(getResources().getString(R.string.news));
+//                drawer.setBackground(getResources().getDrawable(R.drawable.settings));
+                rl_one.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_two.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_three.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_four.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_five.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_six.setBackgroundColor(ContextCompat.getColor(this,R.color.white));
+                rl_seven.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_eight.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_ten.setBackgroundColor(ContextCompat.getColor(this, R.color.list_row_hover_start_color));
+                rl_nine.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                rl_zero.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+
+                tv_one.setTypeface(Typeface.DEFAULT);
+                tv_two.setTypeface(Typeface.DEFAULT);
+                tv_three.setTypeface(Typeface.DEFAULT);
+                tv_four.setTypeface(Typeface.DEFAULT);
+                tv_five.setTypeface(Typeface.DEFAULT);
+                tv_six.setTypeface(Typeface.DEFAULT);
+                tv_seven.setTypeface(Typeface.DEFAULT);
+                tv_eight.setTypeface(Typeface.DEFAULT);
+                tv_nine.setTypeface(Typeface.DEFAULT_BOLD);
+                tv_zero.setTypeface(Typeface.DEFAULT);
+                tv_ten.setTypeface(Typeface.DEFAULT);
+
+                tv_one.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_two.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_three.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_four.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_five.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_six.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_seven.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_ten.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_eight.setTextColor(getResources().getColor(R.color.text_color_gray));
+                tv_nine.setTextColor(getResources().getColor(R.color.cpv_default_color));
+                tv_zero.setTextColor(getResources().getColor(R.color.text_color_gray));
+            }
+            break;
             default:
                 break;
         }
@@ -888,11 +1009,11 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
 
         loadImageLoaderOption();
 
-        TypedValue typedvaluecoloraccent = new TypedValue();
-        getTheme().resolveAttribute(kz.qobyzbook.R.attr.colorAccent, typedvaluecoloraccent, true);
-        final int coloraccent = typedvaluecoloraccent.data;
-        audio_progress.setBackgroundColor(coloraccent);
-        audio_progress.setValue(0);
+//        TypedValue typedvaluecoloraccent = new TypedValue();
+//        getTheme().resolveAttribute(kz.qobyzbook.R.attr.colorAccent, typedvaluecoloraccent, true);
+//        final int coloraccent = typedvaluecoloraccent.data;
+//        audio_progress.setBackgroundColor(coloraccent);
+//        audio_progress.setValue(0);
 
         audio_progress.setOnValueChangedListener(this);
         imgbtn_backward.setOnClickListener(this);
@@ -1001,10 +1122,11 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
 
 
     //Catch  theme changed from settings
+    @TargetApi(Build.VERSION_CODES.M)
     public void theme() {
         Log.d(TAG, "theme()");
         sharedPreferences = getSharedPreferences("VALUES", Context.MODE_PRIVATE);
-        theme = sharedPreferences.getInt("THEME", 0);
+        theme = sharedPreferences.getInt("THEME", 1);
         DMPlayerUtility.settingTheme(context, theme);
     }
 
@@ -1014,10 +1136,6 @@ public class DMPlayerBaseActivity extends AppCompatActivity implements View.OnCl
                 .showImageForEmptyUri(kz.qobyzbook.R.drawable.bg_default_album_art).showImageOnFail(kz.qobyzbook.R.drawable.bg_default_album_art).cacheInMemory(true)
                 .cacheOnDisk(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
     }
-
-
-
-
 
 
     private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {

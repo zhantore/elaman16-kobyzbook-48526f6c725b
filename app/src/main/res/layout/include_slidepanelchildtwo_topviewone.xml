@@ -3,7 +3,7 @@
     xmlns:playpauseview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@drawable/transparent"
+    android:background="@color/cpv_default_color"
     android:elevation="3dp"
     android:gravity="center"
     android:orientation="horizontal">

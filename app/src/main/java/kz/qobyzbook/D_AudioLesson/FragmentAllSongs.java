@@ -60,7 +60,7 @@ public class FragmentAllSongs extends Fragment implements DialogAlert {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView()");
-        View v = inflater.inflate(kz.qobyzbook.R.layout.fragment_allsongs, null);
+        View v = inflater.inflate(kz.qobyzbook.R.layout.fragment_allsongs, container, false);
         progress = new ProgressDialog(getActivity());
         setupInitialViews(v);
         fillContent();
@@ -233,7 +233,9 @@ public class FragmentAllSongs extends Fragment implements DialogAlert {
 
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getActivity(), AudioActivity.class).putExtra("id", mDetail.getId()));
+                    startActivity(new Intent(getActivity(), AudioActivity.class)
+                            .putExtra("id", mDetail.getId())
+                            .putExtra("title", mDetail.getTitle()));
 //                    SongDetail mDetail = songList.get(position);
 //                    ((DMPlayerBaseActivity) getActivity()).updateImages(mDetail);
 //                    ((DMPlayerBaseActivity) getActivity()).updateTitles(mDetail);

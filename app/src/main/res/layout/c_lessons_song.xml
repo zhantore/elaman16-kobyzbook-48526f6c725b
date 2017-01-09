@@ -60,7 +60,7 @@
                         android:text="@string/no_internet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_color"
+                        android:textColor="@color/text_color_gray"
                         android:textSize="16sp"/>
                     <TextView
                         android:layout_centerHorizontal="true"
@@ -106,7 +106,7 @@
                     android:layout_below="@+id/progress_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/md_black_1000"
                     android:textSize="16sp"
                     android:text="@string/wait"
                     android:layout_centerHorizontal="true"

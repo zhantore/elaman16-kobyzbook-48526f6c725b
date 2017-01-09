@@ -21,10 +21,12 @@ import android.widget.RelativeLayout;
 
 import com.nineoldandroids.view.ViewHelper;
 
+import kz.qobyzbook.R;
+
 public class Slider extends CustomView {
 
-    private int backgroundColor = Color.parseColor("#4CAF50");
-    private int backgroundColorLine = Color.parseColor("#4CAF50");
+    private int backgroundColor = getResources().getColor(R.color.white);//Color.parseColor("#4CAF50");
+    private int backgroundColorLine = getResources().getColor(R.color.white);//Color.parseColor("#4CAF50");
     private Ball ball;
     private Bitmap bitmap;
     private int max = 100;

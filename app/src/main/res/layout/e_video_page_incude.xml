@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/menu2"
     android:id="@+id/video_page"
     android:weightSum="1">
 
@@ -13,16 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_gravity="center_vertical"
-        />
+        android:layout_gravity="center_vertical"/>
     <RelativeLayout
         android:visibility="gone"
         android:id="@+id/rl_internet"
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        >
+        android:background="@android:color/white">
         <RelativeLayout
             android:id="@+id/ll_inter"
             android:layout_width="match_parent"
@@ -39,8 +36,7 @@
                 android:src="@drawable/icon_wifi"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
-                android:layout_centerHorizontal="true"
-                />
+                android:layout_centerHorizontal="true"/>
             <TextView
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="5dp"
@@ -70,8 +66,7 @@
                 android:background="@color/colorPrimary"
                 android:textColor="@color/button_text_color"
                 android:shadowColor="@color/colorPrimary"
-                android:layout_below="@+id/internet_text2"
-                />
+                android:layout_below="@+id/internet_text2"/>
         </RelativeLayout>
     </RelativeLayout>
 
@@ -97,7 +92,7 @@
             android:layout_below="@+id/progress_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="@android:color/black"
             android:textSize="16sp"
             android:text="@string/wait"
             android:layout_centerHorizontal="true"
@@ -110,12 +105,12 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/cpv_default_color"
             android:layout_below="@+id/statusBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />

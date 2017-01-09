@@ -21,11 +21,12 @@ import kz.qobyzbook.tablayout.SlidingTabLayout;
 
 public class LessonFragment extends Fragment {
 
-    private final String[] TITLES = {""};
+    private final String[] TITLES = {"", "", ""};
     private TypedValue typedValueToolbarHeight = new TypedValue();
 
     LessonsQobyz lessonsQobyz;
     LessonsDombyra lessonsDombyra;
+    LessonQobyzAnder lessonQobyzAnder;
 
     private MyPagerAdapter pagerAdapter;
     private ViewPager pager;
@@ -47,7 +48,8 @@ public class LessonFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_library, null);
         TITLES[0] = getActivity().getResources().getString(R.string.lessons_qobyz);
-//        TITLES[1] = getActivity().getResources().getString(R.string.lessons_dombyra);
+        TITLES[1] = getActivity().getResources().getString(R.string.lessons_dombyra);
+        TITLES[2] = getActivity().getResources().getString(R.string.lessons_song);
         setupView(v);
         return v;
     }
@@ -63,10 +65,10 @@ public class LessonFragment extends Fragment {
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.text_color);
+                return getResources().getColor(R.color.white);
             }
         });
-//        tabs.setViewPager(pager);
+        tabs.setViewPager(pager);
     }
 
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
@@ -101,10 +103,12 @@ public class LessonFragment extends Fragment {
                 case 0:
                     lessonsQobyz = new LessonsQobyz();
                     return lessonsQobyz;
-//                case 1:
-//                    lessonsDombyra = new LessonsDombyra();
-//                    return lessonsDombyra;
-
+                case 1:
+                    lessonsDombyra = new LessonsDombyra();
+                    return lessonsDombyra;
+                case 2:
+                    lessonQobyzAnder = new LessonQobyzAnder();
+                    return lessonQobyzAnder;
             }
             return null;
         }

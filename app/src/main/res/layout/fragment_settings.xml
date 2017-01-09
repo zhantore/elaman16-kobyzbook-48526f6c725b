@@ -23,7 +23,7 @@
             android:layout_marginRight="8dp"
             android:text="@string/setting_lang"
             android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
-            android:textColor="@color/text_color"
+            android:textColor="@color/text_color_gray"
             android:textSize="16sp" />
         <TextView
             android:layout_below="@+id/textViewLanguage"
@@ -34,7 +34,7 @@
             android:layout_marginRight="8dp"
             android:text="@string/lang"
             android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
-            android:textColor="@color/text_color"
+            android:textColor="@color/text_color_gray"
             android:textSize="14sp" />
 
     </RelativeLayout>

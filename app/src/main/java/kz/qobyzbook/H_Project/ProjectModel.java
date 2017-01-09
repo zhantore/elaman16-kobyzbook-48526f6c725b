@@ -79,7 +79,15 @@ public class ProjectModel {
         this.zhoba = zhoba;
     }
 
-    String omirbayan, onerbayan, zhetistik, enbek, gilim, shigarma, aniktama, mail, zhoba;
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    String omirbayan, onerbayan, zhetistik, enbek, gilim, shigarma, aniktama, mail, zhoba, photo;
 
 
 

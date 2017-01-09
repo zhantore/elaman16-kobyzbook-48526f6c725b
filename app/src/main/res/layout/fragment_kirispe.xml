@@ -5,12 +5,20 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <TextView
-        android:text="Koobyz Book - приложение для тех, кому интересен национальный инструмент Кобыз."
+    <ScrollView
+        android:id="@+id/scrollViewOmir"
+        android:layout_marginBottom="65dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:layout_margin="8dp"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:id="@+id/textView12" />
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_margin="10dp"
+            android:paddingBottom="10dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:id="@+id/textView12"
+            android:gravity="fill_horizontal"
+            android:foregroundGravity="fill" />
+    </ScrollView>
 </LinearLayout>

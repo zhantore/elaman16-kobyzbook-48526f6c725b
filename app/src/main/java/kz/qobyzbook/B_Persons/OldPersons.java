@@ -129,11 +129,15 @@ public class OldPersons extends Fragment {
                                 if (lang.equals("kk")&&obj.getBoolean(TIME)){
                                     qobyz.setName(obj.getString(NAME_KZ));
                                     qobyz.setDescription(obj.getString(DESCRIPTION_KZ));
+                                    qobyz.setPhoto(obj.getString("photo"));
+                                    qobyz.setSphoto(obj.getString("sphoto"));
                                     qobyzArrayList.add(qobyz);
                                 }
                                 else  if (lang.equals("en")&&obj.getBoolean(TIME)) {
                                     qobyz.setName(obj.getString(NAME_EN));
                                     qobyz.setDescription(obj.getString(DESCRIPTION_EN));
+                                    qobyz.setPhoto(obj.getString("photo"));
+                                    qobyz.setSphoto(obj.getString("sphoto"));
                                     qobyzArrayList.add(qobyz);
                                 }
 

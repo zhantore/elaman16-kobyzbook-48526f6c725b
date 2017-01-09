@@ -11,6 +11,7 @@ import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnItemTouchListener;
+import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +19,7 @@ import android.view.View;
 abstract class ClickItemTouchListener implements OnItemTouchListener {
     private static final String LOGTAG = "ClickItemTouchListener";
 
-    private final GestureDetectorCompat mGestureDetector;
+    public GestureDetector mGestureDetector;
 
     ClickItemTouchListener(RecyclerView hostView) {
         mGestureDetector = new ItemClickGestureDetector(hostView.getContext(),
@@ -57,7 +58,7 @@ abstract class ClickItemTouchListener implements OnItemTouchListener {
 
     abstract boolean performItemLongClick(RecyclerView parent, View view, int position, long id);
 
-    private class ItemClickGestureDetector extends GestureDetectorCompat {
+    private class ItemClickGestureDetector extends GestureDetector {
         private final ItemClickGestureListener mGestureListener;
 
         public ItemClickGestureDetector(Context context, ItemClickGestureListener listener) {

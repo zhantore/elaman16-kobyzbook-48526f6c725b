@@ -48,7 +48,6 @@ import kz.qobyzbook.manager.MediaController;
 import kz.qobyzbook.manager.MusicPreferance;
 import kz.qobyzbook.manager.NotificationManager;
 import kz.qobyzbook.models.SongDetail;
-import kz.qobyzbook.observablelib.ScrollUtils;
 import kz.qobyzbook.phonemidea.DMPlayerUtility;
 import kz.qobyzbook.slidinguppanelhelper.SlidingUpPanelLayout;
 import kz.qobyzbook.uicomponent.PlayPauseView;
@@ -57,8 +56,6 @@ import kz.qobyzbook.utility.LogWriter;
 
 public class VideoPage extends AppCompatActivity implements View.OnClickListener, Slider.OnValueChangedListener,
         NotificationManager.NotificationCenterDelegate, YouTubePlayer.OnInitializedListener {
-
-    private View mToolbarView;
 
     private SharedPreferences sharedPreferences;
     private int color = 0xFFFFFF;
@@ -232,14 +229,12 @@ public class VideoPage extends AppCompatActivity implements View.OnClickListener
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mToolbarView = findViewById(R.id.toolbar);
-
         // Setup RecyclerView inside drawer
         final TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
         color = typedValue.data;
 
-        mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, color));
+//        mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, color));
 
 
         rl_downloading = (RelativeLayout)findViewById(R.id.circle_bg);

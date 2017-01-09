@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import kz.qobyzbook.R;
@@ -84,6 +85,7 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.MyViewHolder
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder()");
         holder.title.setText(aboutQobyzList.get(position));
+//        holder.title.loadData(aboutQobyzList.get(position), "text/html", "Windows-1252");
     }
 
 

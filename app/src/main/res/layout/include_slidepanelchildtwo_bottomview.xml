@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     xmlns:playpauseview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cpv_default_color"
     android:orientation="vertical">
 
     <LinearLayout
@@ -28,7 +28,7 @@
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:singleLine="true"
-                android:text="03.45"
+                android:text="0"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
@@ -37,9 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:background="@color/md_blue_100"
                 android:layout_toLeftOf="@+id/slidepanel_time_total"
                 android:layout_toRightOf="@+id/slidepanel_time_progress"
-                android:background="#1E88E5"
                 app:max="100"
                 app:min="0" />
 
@@ -97,11 +97,12 @@
                 android:id="@+id/btn_play"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_centerInParent="true"
                 android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
                 android:stateListAnimator="@anim/button_elevation"
-                playpauseview:isCircleDraw="true" />
+                playpauseview:isCircleDraw="true"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
         <ImageView

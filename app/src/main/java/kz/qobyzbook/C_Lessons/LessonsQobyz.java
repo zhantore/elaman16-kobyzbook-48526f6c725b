@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -66,6 +67,7 @@ public class LessonsQobyz extends Fragment {
     LinearLayoutManager mLayoutManager;
     RelativeLayout rl_internet,rl_downloading;
     Button btn_update;
+    TextView empty;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +82,7 @@ public class LessonsQobyz extends Fragment {
         rl_downloading = (RelativeLayout) view.findViewById(R.id.circle_bg);
         rl_internet = (RelativeLayout) view.findViewById(R.id.rl_internet);
         btn_update = (Button) view.findViewById(R.id.btn_update);
+        empty = (TextView)view.findViewById(R.id.emptyText);
 
         //Recycler View
         mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
@@ -149,6 +152,7 @@ public class LessonsQobyz extends Fragment {
                                     lesson.setLiter(obj.getString(LITER_EN));
                                     qobyzArrayList.add(lesson);
                                 }
+                                empty.setVisibility(View.GONE);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -161,6 +165,7 @@ public class LessonsQobyz extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("Volley", "Error: " + error.getMessage());
+                empty.setVisibility(View.VISIBLE);
             }
         });
         AppController.getInstance().addToRequestQueue(addReq);

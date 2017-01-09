@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +51,6 @@ public class FragmentProject extends Fragment {
 
     RelativeLayout rl_internet,rl_downloading;
     Button btn_update;
-
     LinearLayout ll_author_project;
     TextView tv_author,tv_project;
 
@@ -66,7 +66,6 @@ public class FragmentProject extends Fragment {
 
         //Initialising components...
         qobyzList = new ArrayList<String>();
-
         ll_author_project = (LinearLayout) view.findViewById(R.id.ll_auhor_project);
         ll_author_project.setVisibility(View.INVISIBLE);
         tv_author = (TextView) view.findViewById(R.id.author);
@@ -95,7 +94,6 @@ public class FragmentProject extends Fragment {
             rl_downloading.setVisibility(View.VISIBLE);
             rl_internet.setVisibility(View.INVISIBLE);
                 makeJsonObjectRequest();
-
         }
         else {
             rl_downloading.setVisibility(View.INVISIBLE);
@@ -151,6 +149,7 @@ public class FragmentProject extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("Volley", "Error: " + error.getMessage());
+                rl_downloading.setVisibility(View.GONE);
             }
         });
         AppController.getInstance().addToRequestQueue(addReq);

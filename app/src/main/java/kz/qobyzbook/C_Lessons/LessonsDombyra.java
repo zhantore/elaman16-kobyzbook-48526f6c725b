@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -45,6 +46,7 @@ public class LessonsDombyra extends Fragment {
 
     //Variables
     ArrayList<Qobyz> qobyzArrayList;
+    TextView empty;
     //QobyzAdapter mAdapter;
 
     //Components
@@ -58,6 +60,7 @@ public class LessonsDombyra extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.c_lessons_song, container, false);
         setHasOptionsMenu(true);
+        empty = (TextView)view.findViewById(R.id.emptyText);
 
         /*//Initialising components...
         qobyzArrayList = new ArrayList<>();
@@ -114,6 +117,7 @@ public class LessonsDombyra extends Fragment {
                     public void onResponse(JSONArray response) {
 
                         rl_downloading.setVisibility(View.INVISIBLE);
+                        empty.setVisibility(View.GONE);
 
                         for (int i = 0; i < response.length(); i++) {
                             try {
@@ -135,6 +139,7 @@ public class LessonsDombyra extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("Volley", "Error: " + error.getMessage());
+                empty.setVisibility(View.VISIBLE);
             }
         });
         AppController.getInstance().addToRequestQueue(addReq);

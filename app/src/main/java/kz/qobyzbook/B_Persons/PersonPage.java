@@ -23,6 +23,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -63,9 +64,6 @@ import kz.qobyzbook.utility.LogWriter;
 
 public class PersonPage extends AppCompatActivity implements View.OnClickListener, Slider.OnValueChangedListener,
         NotificationManager.NotificationCenterDelegate {
-
-    private View mToolbarView;
-
     private SharedPreferences sharedPreferences;
     private int color = 0xFFFFFF;
     private Context context;
@@ -80,11 +78,10 @@ public class PersonPage extends AppCompatActivity implements View.OnClickListene
     //Components
     RelativeLayout rl_internet,rl_downloading;
     Button btn_update;
-    TextView tv_about_qobyz;
-
-
+    WebView tv_about_qobyz;
     private DisplayImageOptions options;
     private ImageLoader imageLoader = ImageLoader.getInstance();
+    ImageView photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,31 +226,33 @@ public class PersonPage extends AppCompatActivity implements View.OnClickListene
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        mToolbarView = findViewById(R.id.toolbar);
-
         // Setup RecyclerView inside drawer
         final TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
         color = typedValue.data;
-
-        mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, color));
-
-        tv_about_qobyz = (TextView) findViewById(R.id.tv_about_qobyz);
+        tv_about_qobyz = (WebView) findViewById(R.id.tv_about_qobyz);
+        tv_about_qobyz.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return true;
+            }
+        });
+        tv_about_qobyz.setLongClickable(false);
         rl_downloading = (RelativeLayout)findViewById(R.id.circle_bg);
         rl_internet = (RelativeLayout) findViewById(R.id.rl_internet);
         btn_update = (Button)findViewById(R.id.btn_update);
-      /*  btn_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getId()==R.id.btn_update){
-                    if (isOnline())
-                        getDataFromServer();
-                    else
-                        Toast.makeText(getBaseContext() ,"Нет соединения",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
+//        btn_update.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (v.getId()==R.id.btn_update){
+//                    if (isOnline())
+//                        getDataFromServer();
+//                    else
+//                        Toast.makeText(getBaseContext() ,"Нет соединения",Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+        photo = (ImageView)findViewById(R.id.imageView3);
 
         options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.bg_default_album_art)
                 .showImageForEmptyUri(R.drawable.bg_default_album_art).showImageOnFail(R.drawable.bg_default_album_art).cacheInMemory(true)
@@ -273,11 +272,15 @@ public class PersonPage extends AppCompatActivity implements View.OnClickListene
     }
 
     private void getBundleValuse() {
+        String foto = "";
         Bundle mBundle = getIntent().getExtras();
         if (mBundle != null) {
             toolbar.setTitle(mBundle.getString("name"));
-            tv_about_qobyz.setText(Html.fromHtml(mBundle.getString("description")));
+            tv_about_qobyz.loadData(mBundle.getString("description"), "text/html; charset=UTF-8", null);
+//            tv_about_qobyz.setText(Html.fromHtml(mBundle.getString("description")));
+            foto = convertURL(mBundle.getString("photo"));
         }
+        imageLoader.displayImage(foto, photo, options);
 
         //getDataFromServer();
     }
@@ -311,10 +314,12 @@ public class PersonPage extends AppCompatActivity implements View.OnClickListene
                         try {
 
                             if (lang.equals("kk")){
-                                tv_about_qobyz.setText(Html.fromHtml(response.getString("etimologykz")));
+//                                tv_about_qobyz.setText(Html.fromHtml(response.getString("etimologykz")));
+                                tv_about_qobyz.loadData(response.getString("etimologykz"), "text/html; charset=UTF-8", null);
                             }
                             else {
-                                tv_about_qobyz.setText(Html.fromHtml(response.getString("etimologyen")));
+//                                tv_about_qobyz.setText(Html.fromHtml(response.getString("etimologyen")));
+                                tv_about_qobyz.loadData(response.getString("etimologyen"), "text/html; charset=UTF-8", null);
                             }
 
                         } catch (JSONException e) {
@@ -331,6 +336,14 @@ public class PersonPage extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    private String convertURL(String url){
+        if (url!=null){
+            url = url.replace("~/", "/");
+            url = url.replace(" ", "%20");
+            url = "http://admin.kobyzbook.kz"+url;
+            return url;}
+        else return null;
+    }
 
     public boolean isOnline() {
         ConnectivityManager cm =

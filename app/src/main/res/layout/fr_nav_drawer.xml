@@ -1,6 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="270dp"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:filterTouchesWhenObscured="false">
 
 
@@ -17,13 +18,21 @@
             android:id="@+id/nav_header_container"
             android:layout_width="match_parent"
             android:layout_height="140dp"
+            android:background="@color/cpv_default_color"
             android:layout_alignParentTop="true"
             android:clickable="false">
 
-            <TextView
-                android:text="''Билим билсен кутты етеди, Канша кишик болсан да улык етеди.''"
+            <!--<com.daimajia.slider.library.SliderLayout-->
+                <!--android:id="@+id/slider"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--app:pager_animation="FlipHorizontal"-->
+                <!--app:indicator_visibility="visible"-->
+                <!--app:auto_cycle="true" >-->
+
+                <TextSwitcher
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
@@ -31,22 +40,23 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
-                android:textColor="@android:color/black"
-                android:id="@+id/textView" />
+                android:textColor="@android:color/white"
+                android:id="@+id/textSwitcher" />
 
-            <TextView
-                android:text="Жусип Баласагун"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:textColor="@android:color/darker_gray"
-                android:textStyle="italic"
-                android:layout_below="@id/textView"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp"
-                android:id="@+id/textView11" />
+                <!--<TextSwitcher-->
+                <!--android:text="Жусип Баласагун"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:textStyle="italic"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:layout_marginEnd="5dp"-->
+                <!--android:id="@+id/textView11" />-->
+
+                <!--</com.daimajia.slider.library.SliderLayout>-->
 
             <ImageView
                 android:id="@+id/langImage"
@@ -60,10 +70,10 @@
                 android:src="@drawable/ic_language_white_24dp"/>
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@color/text_color"/>
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="3dp"-->
+            <!--android:background="?colorPrimary"/>-->
 
         <RelativeLayout
             android:id="@+id/rl_zero"
@@ -84,7 +94,7 @@
                 android:text="@string/kirispe"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/menu_tv_size"/>
         </RelativeLayout>
 
@@ -107,7 +117,7 @@
                 android:text="@string/about_qobyz"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/menu_tv_size"/>
         </RelativeLayout>
 
@@ -130,7 +140,7 @@
                 android:text="@string/persons"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/menu_tv_size" />
         </RelativeLayout>
 
@@ -153,35 +163,12 @@
                 android:text="@string/lessons"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/menu_tv_size"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_four"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/menu_row_height"
-            android:padding="@dimen/menu_row_padding">
-            <ImageView
-                android:id="@+id/menu_img4"
-                android:layout_width="@dimen/menu_image_width"
-                android:layout_height="@dimen/menu_image_height"
-                android:src="@mipmap/audio"
-                android:layout_centerVertical="true"/>
-            <TextView
-                android:layout_toRightOf="@+id/menu_img4"
-                android:id="@+id/tv_four"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/audio"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/menu_tv_size"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_five"
             android:layout_width="match_parent"
             android:layout_height="@dimen/menu_row_height"
             android:padding="@dimen/menu_row_padding">
@@ -199,7 +186,30 @@
                 android:text="@string/beine_sabaqtar"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/menu_tv_size"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_five"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_row_height"
+            android:padding="@dimen/menu_row_padding">
+            <ImageView
+                android:id="@+id/menu_img4"
+                android:layout_width="@dimen/menu_image_width"
+                android:layout_height="@dimen/menu_image_height"
+                android:src="@mipmap/audio"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_toRightOf="@+id/menu_img4"
+                android:id="@+id/tv_four"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/audio"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/menu_tv_mergin_left"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/menu_tv_size"/>
         </RelativeLayout>
 
@@ -222,7 +232,7 @@
                 android:text="@string/playlist"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/menu_tv_size"/>
         </RelativeLayout>
 
@@ -245,7 +255,7 @@
                 android:text="@string/test"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/menu_tv_size"/>
         </RelativeLayout>
 
@@ -268,35 +278,12 @@
                 android:text="@string/autor"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/menu_tv_size"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_nine"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/menu_row_height"
-            android:padding="@dimen/menu_row_padding">
-            <ImageView
-                android:id="@+id/menu_img9"
-                android:layout_width="@dimen/menu_image_width"
-                android:layout_height="@dimen/menu_image_height"
-                android:src="@mipmap/news"
-                android:layout_centerVertical="true"/>
-            <TextView
-                android:layout_toRightOf="@+id/menu_img9"
-                android:id="@+id/tv_nine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/news"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/menu_tv_size"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_ten"
             android:layout_width="match_parent"
             android:layout_height="@dimen/menu_row_height"
             android:padding="@dimen/menu_row_padding">
@@ -314,7 +301,30 @@
                 android:text="@string/zhoba_turaly"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/menu_tv_mergin_left"
-                android:textColor="@color/text_color"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/menu_tv_size"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_ten"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_row_height"
+            android:padding="@dimen/menu_row_padding">
+            <ImageView
+                android:id="@+id/menu_img9"
+                android:layout_width="@dimen/menu_image_width"
+                android:layout_height="@dimen/menu_image_height"
+                android:src="@mipmap/news"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_toRightOf="@+id/menu_img9"
+                android:id="@+id/tv_nine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/news"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/menu_tv_mergin_left"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/menu_tv_size"/>
         </RelativeLayout>
 

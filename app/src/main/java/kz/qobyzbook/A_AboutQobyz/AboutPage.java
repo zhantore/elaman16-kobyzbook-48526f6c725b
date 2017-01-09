@@ -24,6 +24,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -86,7 +87,7 @@ public class AboutPage extends AppCompatActivity implements View.OnClickListener
     //Components
     RelativeLayout rl_internet,rl_downloading;
     Button btn_update;
-    TextView tv_about_qobyz;
+    WebView tv_about_qobyz;
 
 
     private DisplayImageOptions options;
@@ -251,7 +252,14 @@ public class AboutPage extends AppCompatActivity implements View.OnClickListener
 
 //        mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, color));
 
-        tv_about_qobyz = (TextView) findViewById(R.id.tv_about_qobyz);
+        tv_about_qobyz = (WebView) findViewById(R.id.tv_about_qobyz);
+        tv_about_qobyz.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return true;
+            }
+        });
+        tv_about_qobyz.setLongClickable(false);
         rl_downloading = (RelativeLayout)findViewById(R.id.circle_bg);
         rl_internet = (RelativeLayout) findViewById(R.id.rl_internet);
         btn_update = (Button)findViewById(R.id.btn_update);
@@ -320,35 +328,45 @@ public class AboutPage extends AppCompatActivity implements View.OnClickListener
         switch (id){
             case 0:
                 if (lang.equals("kk"))
-                objectJson = "etimologykz";
-            else objectJson = "etimologyen";
+                objectJson = "aniktamakz";
+            else objectJson = "aniktamaen";
                 break;
             case 1:
+                if (lang.equals("kk"))
+                    objectJson = "historykz";
+                else objectJson = "historyen";
+                break;
+            case 2:
+                if (lang.equals("kk"))
+                    objectJson = "etimologykz";
+                else objectJson = "etimologyen";
+                break;
+            case 3:
                 if (lang.equals("kk"))
                     objectJson = "tipolkz";
                 else objectJson = "tipolen";
                 break;
-            case 2:
-                if (lang.equals("kk"))
-                    objectJson = "typekz";
-                else objectJson = "typeen";
-                break;
-            case 3:
+            case 4:
                 if (lang.equals("kk"))
                     objectJson = "structkz";
                 else objectJson = "structen";
                 break;
-            case 4:
+            case 5:
                 if (lang.equals("kk"))
                     objectJson = "playkz";
                 else objectJson = "playen";
                 break;
-            case 5:
+            case 6:
+                if (lang.equals("kk"))
+                    objectJson = "madekz";
+                else objectJson = "madeen";
+                break;
+            case 7:
                 if (lang.equals("kk"))
                     objectJson = "citatakz";
                 else objectJson = "citataen";
                 break;
-            case 6:
+            case 8:
                 if (lang.equals("kk"))
                     objectJson = "literkz";
                 else objectJson = "literen";
@@ -363,8 +381,8 @@ public class AboutPage extends AppCompatActivity implements View.OnClickListener
                     public void onResponse(JSONObject response) {
                         rl_downloading.setVisibility(View.INVISIBLE);
                         try {
-                                tv_about_qobyz.setText(Html.fromHtml(response.getString(objectJson)));
-
+//                            tv_about_qobyz.setText(Html.fromHtml(response.getString(objectJson)));
+                            tv_about_qobyz.loadData(response.getString(objectJson), "text/html; charset=UTF-8", null);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -377,6 +395,15 @@ public class AboutPage extends AppCompatActivity implements View.OnClickListener
         });
         AppController.getInstance().addToRequestQueue(aboutQobyzReq);
 
+    }
+
+    private String convertURL(String url){
+        if (url!=null){
+            url = url.replace("~/", "/");
+            url = url.replace(" ", "%20");
+            url = "http://admin.kobyzbook.kz"+url;
+            return url;}
+        else return null;
     }
 
 
@@ -441,10 +468,10 @@ public class AboutPage extends AppCompatActivity implements View.OnClickListener
         img_Note = (ImageView) findViewById(R.id.bottombar_noteicon);
 
 
-        TypedValue typedvaluecoloraccent = new TypedValue();
-        getTheme().resolveAttribute(R.attr.colorAccent, typedvaluecoloraccent, true);
-        final int coloraccent = typedvaluecoloraccent.data;
-        audio_progress.setBackgroundColor(coloraccent);
+//        TypedValue typedvaluecoloraccent = new TypedValue();
+//        getTheme().resolveAttribute(R.attr.colorAccent, typedvaluecoloraccent, true);
+//        final int coloraccent = typedvaluecoloraccent.data;
+//        audio_progress.setBackgroundColor(coloraccent);
         audio_progress.setValue(0);
 
         audio_progress.setOnValueChangedListener(this);
@@ -492,11 +519,11 @@ public class AboutPage extends AppCompatActivity implements View.OnClickListener
 
         imgbtn_toggle.setSelected((MusicPreferance.getRepeat(context) == 1) ? true : false);
         MediaController.getInstance().shuffleMusic = imgbtn_toggle.isSelected() ? true : false;
-        DMPlayerUtility.changeColorSet(context, (ImageView) imgbtn_toggle, imgbtn_toggle.isSelected());
+//        DMPlayerUtility.changeColorSet(context, (ImageView) imgbtn_toggle, imgbtn_toggle.isSelected());
 
         imgbtn_suffel.setSelected(MusicPreferance.getShuffel(context) ? true : false);
         MediaController.getInstance().repeatMode = imgbtn_suffel.isSelected() ? 1 : 0;
-        DMPlayerUtility.changeColorSet(context, (ImageView) imgbtn_suffel, imgbtn_suffel.isSelected());
+//        DMPlayerUtility.changeColorSet(context, (ImageView) imgbtn_suffel, imgbtn_suffel.isSelected());
 
         mLayout.setPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
             @Override

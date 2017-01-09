@@ -51,9 +51,6 @@ import kz.qobyzbook.uicomponent.Slider;
 
 public class LessonNote extends AppCompatActivity implements View.OnClickListener, Slider.OnValueChangedListener,
         NotificationManager.NotificationCenterDelegate {
-
-    private View mToolbarView;
-
     private SharedPreferences sharedPreferences;
     private int color = 0xFFFFFF;
     private Context context;
@@ -196,14 +193,10 @@ public class LessonNote extends AppCompatActivity implements View.OnClickListene
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mToolbarView = findViewById(R.id.toolbar);
-
         // Setup RecyclerView inside drawer
         final TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
         color = typedValue.data;
-
-        mToolbarView.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, color));
 
         tv_about_qobyz = (TextView) findViewById(R.id.tv_about_qobyz);
         rl_downloading = (RelativeLayout)findViewById(R.id.circle_bg);

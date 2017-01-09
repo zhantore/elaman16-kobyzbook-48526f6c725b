@@ -48,35 +48,34 @@ public class FragmentDrawer extends Fragment {
             switch (v.getId()){
                 case R.id.rl_zero:{
                     drawerListener.onDrawerItemSelected(1);
-                }
-                break;
+                } break;
                 case R.id.rl_one:{
                     drawerListener.onDrawerItemSelected(2);
                 } break;
                 case R.id.rl_two:{
                     drawerListener.onDrawerItemSelected(3);
-                }break;
+                } break;
                 case R.id.rl_three:{
                     drawerListener.onDrawerItemSelected(4);
                 } break;
                 case R.id.rl_four:{
                     drawerListener.onDrawerItemSelected(5);
-                }break;
+                } break;
                 case R.id.rl_five:{
                     drawerListener.onDrawerItemSelected(6);
                 } break;
                 case R.id.rl_six:{
                     drawerListener.onDrawerItemSelected(7);
-                }break;
+                } break;
                 case R.id.rl_seven:{
                     drawerListener.onDrawerItemSelected(8);
                 } break;
                 case R.id.rl_eight:{
                     drawerListener.onDrawerItemSelected(9);
-                }break;
+                } break;
                 case R.id.rl_nine:{
                     drawerListener.onDrawerItemSelected(10);
-                }   break;
+                } break;
                 case R.id.rl_ten:{
                     drawerListener.onDrawerItemSelected(11);
                 }

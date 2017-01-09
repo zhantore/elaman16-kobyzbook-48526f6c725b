@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/relativeLayoutOmirOner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ScrollView
+            android:id="@+id/scrollViewOmir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/author_photo" />
+
+                <TextView
+                    android:id="@+id/omir"
+                    android:layout_width="match_parent"
+                    android:layout_margin="15dp"
+                    android:textColor="@android:color/black"
+                    android:layout_height="wrap_content"
+                    style="@style/textViewStyle"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:stretchColumns="0"
+                    android:shrinkColumns="*">
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/anyktama"
+                            style="@style/textViewStyle"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"/>
+                        <TextView
+                            android:id="@+id/anyktama"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/textViewStyle"
+                            android:textColor="@android:color/black"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/mail"
+                            android:textStyle="bold"
+                            style="@style/textViewStyle"
+                            android:textColor="@android:color/black"/>
+                        <TextView
+                            android:id="@+id/mail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/textViewStyle"
+                            android:textColor="@android:color/black"/>
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
 </LinearLayout>

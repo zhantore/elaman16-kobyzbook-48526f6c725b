@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KoobyzBook</string>
+    <string name="app_name">Kobyzbook</string>
 
     <!-- DataBase Name And Version -->
     <string name="DataBaseName_Version">1</string>
@@ -65,17 +65,27 @@
 
     <string name="lessons_qobyz">Қобыз күйлері</string>
     <string name="lessons_dombyra">Домбыра күйлері</string>
-    <string name="lessons_song">Әндері</string>
+    <string name="lessons_song">Әндер</string>
     <string name="kuishiler">Күйшілер</string>
     <string name="kuiler">Күйлер</string>
 
-    <string name="about_qobyz_a">Қобыз этимологисясы</string>
-    <string name="about_qobyz_b">Қобыз типологися</string>
-    <string name="about_qobyz_c">Қобыз түрлері</string>
-    <string name="about_qobyz_d">Қобыздың құрылысы</string>
-    <string name="about_qobyz_e">Қобызды тарту</string>
-    <string name="about_qobyz_f">Қобыздың зерттелуі</string>
-    <string name="about_qobyz_g">Оқулықтар мен ғылыми әдебиеттер</string>
+    <string name="about_qobyz_a">Қобыз анықтамасы</string>
+    <string name="about_qobyz_b">Қобыздың шығу тарихы</string>
+    <string name="about_qobyz_c">Қобыз этимологиясы</string>
+    <string name="about_qobyz_d">Қобыз типологиясы</string>
+    <string name="about_qobyz_e">Қобыздың құрылысы</string>
+    <string name="about_qobyz_f">Қобызды тарту</string>
+    <string name="about_qobyz_g">Қобыздың жасалуы</string>
+    <string name="about_qobyz_h">Қобыздың зерттелуі(цитаталар)</string>
+    <string name="about_qobyz_i">Оқулықтар мен ғылыми әдебиеттер</string>
+
+    <!--<string name="about_qobyz_a">Қобыз этимологисясы</string>-->
+    <!--<string name="about_qobyz_b">Қобыз типологися</string>-->
+    <!--<string name="about_qobyz_c">Қобыз түрлері</string>-->
+    <!--<string name="about_qobyz_d">Қобыздың құрылысы</string>-->
+    <!--<string name="about_qobyz_e">Қобызды тарту</string>-->
+    <!--<string name="about_qobyz_f">Қобыздың зерттелуі</string>-->
+    <!--<string name="about_qobyz_g">Оқулықтар мен ғылыми әдебиеттер</string>-->
     <string name="error">Жүктеу кезіндегі қате, қайта көріңіз</string>
     <string name="soon">Бос бет</string>
     <string name="no_connect">Байланыс жоқ</string>

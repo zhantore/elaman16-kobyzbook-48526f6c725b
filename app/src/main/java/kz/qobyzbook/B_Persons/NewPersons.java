@@ -26,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import kz.qobyzbook.A_AboutQobyz.Qobyz;
 import kz.qobyzbook.AppController;
@@ -65,6 +67,7 @@ public class NewPersons extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
+
         mAdapter = new PersonAdapter(getActivity(), qobyzArrayList, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -76,6 +79,20 @@ public class NewPersons extends Fragment {
         btn_update.setOnClickListener(onClickListener);
 
         return view;
+    }
+
+    /**
+     * Метод для сортировки людей по фамилии
+     */
+    private class CustomComporator implements Comparator<Qobyz> {
+
+        @Override
+        public int compare(Qobyz qobyz1, Qobyz qobyz2) {
+            if (qobyz1.getName() != null && qobyz2.getName() != null) {
+                return qobyz1.getName().compareTo(qobyz2.getName());
+            }
+            return -1;
+        }
     }
 
     //Fill list with data from Server using JSON
@@ -113,11 +130,15 @@ public class NewPersons extends Fragment {
                                 if (lang.equals("kk")&&!obj.getBoolean(OldPersons.TIME)){
                                     qobyz.setName(obj.getString(OldPersons.NAME_KZ));
                                     qobyz.setDescription(obj.getString(OldPersons.DESCRIPTION_KZ));
+                                    qobyz.setPhoto(obj.getString("photo"));
+                                    qobyz.setSphoto(obj.getString("sphoto"));
                                     qobyzArrayList.add(qobyz);
                                 }
                                 else if (lang.equals("en")&&!obj.getBoolean(OldPersons.TIME)){
                                     qobyz.setName(obj.getString(OldPersons.NAME_EN));
                                     qobyz.setDescription(obj.getString(OldPersons.DESCRIPTION_EN));
+                                    qobyz.setPhoto(obj.getString("photo"));
+                                    qobyz.setSphoto(obj.getString("sphoto"));
                                     qobyzArrayList.add(qobyz);
                                 }
 
@@ -127,6 +148,7 @@ public class NewPersons extends Fragment {
                                 e.printStackTrace();
                             }
                         }
+                        Collections.sort(qobyzArrayList, new CustomComporator());
                         mAdapter.notifyDataSetChanged();
 
                     }

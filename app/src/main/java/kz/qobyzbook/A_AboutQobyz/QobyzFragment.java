@@ -1,6 +1,7 @@
 package kz.qobyzbook.A_AboutQobyz;
 
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +38,6 @@ public class QobyzFragment extends Fragment {
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle(getResources().getString(R.string.about_qobyz));
 
-
         //Initialising components...
         qobyzArrayList = new ArrayList<>();
         fillData();
@@ -54,7 +54,7 @@ public class QobyzFragment extends Fragment {
 
     }
 
-    void fillData(){
+    void fillData() {
         Log.d(TAG, "fillData()");
         String aboutQobyzA = getResources().getString(R.string.about_qobyz_a);
         String aboutQobyzB = getResources().getString(R.string.about_qobyz_b);
@@ -63,6 +63,8 @@ public class QobyzFragment extends Fragment {
         String aboutQobyzE = getResources().getString(R.string.about_qobyz_e);
         String aboutQobyzF = getResources().getString(R.string.about_qobyz_f);
         String aboutQobyzG = getResources().getString(R.string.about_qobyz_g);
+        String aboutQobyzH = getResources().getString(R.string.about_qobyz_h);
+        String aboutQobyzI = getResources().getString(R.string.about_qobyz_i);
 
         qobyzList = new ArrayList<String>();
         qobyzList.add(aboutQobyzA);
@@ -72,6 +74,8 @@ public class QobyzFragment extends Fragment {
         qobyzList.add(aboutQobyzE);
         qobyzList.add(aboutQobyzF);
         qobyzList.add(aboutQobyzG);
+        qobyzList.add(aboutQobyzH);
+        qobyzList.add(aboutQobyzI);
     }
     //Fill list with data from Server using JSON
 

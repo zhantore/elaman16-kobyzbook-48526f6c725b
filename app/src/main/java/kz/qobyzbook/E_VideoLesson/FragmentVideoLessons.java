@@ -23,7 +23,7 @@ import kz.qobyzbook.tablayout.SlidingTabLayout;
 
 public class FragmentVideoLessons extends Fragment {
 
-    private final String[] TITLES = {""};
+    private final String[] TITLES = {"", "", ""};
     private ViewPager pager;
     private SlidingTabLayout tabs;
     private FragmentVideoQobyz fragmentVideoQobyz;
@@ -35,8 +35,8 @@ public class FragmentVideoLessons extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_library, null);
         TITLES[0] = getActivity().getResources().getString(R.string.lessons_qobyz);
-//        TITLES[1] = getActivity().getResources().getString(R.string.lessons_dombyra);
-//        TITLES[2] = getActivity().getResources().getString(R.string.lessons_song);
+        TITLES[1] = getActivity().getResources().getString(R.string.lessons_dombyra);
+        TITLES[2] = getActivity().getResources().getString(R.string.lessons_song);
         setupView(v);
         return v;
     }
@@ -51,10 +51,10 @@ public class FragmentVideoLessons extends Fragment {
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.text_color);
+                return getResources().getColor(R.color.white);
             }
         });
-//        tabs.setViewPager(pager);
+        tabs.setViewPager(pager);
     }
 
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
@@ -89,12 +89,12 @@ public class FragmentVideoLessons extends Fragment {
                 case 0:
                     fragmentVideoQobyz = new FragmentVideoQobyz();
                     return fragmentVideoQobyz;
-//                case 1:
-//                    fragmentVideoDombyra = new FragmentVideoDombyra();
-//                    return fragmentVideoDombyra;
-//                case 2:
-//                    fragmentVQobyzAnder = new FragmentVQobyzAnder();
-//                    return fragmentVQobyzAnder;
+                case 1:
+                    fragmentVideoDombyra = new FragmentVideoDombyra();
+                    return fragmentVideoDombyra;
+                case 2:
+                    fragmentVQobyzAnder = new FragmentVQobyzAnder();
+                    return fragmentVQobyzAnder;
             }
             return null;
         }

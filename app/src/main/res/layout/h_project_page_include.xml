@@ -1,13 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/project_page">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/relativeLayoutZhoba"
         android:layout_width="match_parent"
-        android:background="@android:color/black"
-        android:alpha="0.8"
         android:layout_height="match_parent">
         <ScrollView
             android:paddingTop="?android:attr/actionBarSize"
@@ -25,7 +22,7 @@
                     android:text="Medium Text"
                     android:id="@+id/zhoba"
                     style="@style/textViewStyle"
-                    android:textColor="@color/text_color"/>
+                    android:textColor="@android:color/black"/>
         </ScrollView>
     </RelativeLayout>
 
@@ -33,8 +30,6 @@
         android:id="@+id/relativeLayoutOmirOner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/black"
-        android:alpha="0.8"
         android:layout_marginTop="10dp">
         <ScrollView
             android:paddingTop="?android:attr/actionBarSize"
@@ -51,7 +46,7 @@
                     android:id="@+id/omir"
                     android:layout_width="match_parent"
                     android:layout_margin="15dp"
-                    android:textColor="@color/text_color"
+                    android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
                     style="@style/textViewStyle"/>
 
@@ -67,14 +62,14 @@
                         android:layout_height="wrap_content"
                         android:text="@string/anyktama"
                         style="@style/textViewStyle"
-                        android:textColor="@color/text_color"/>
+                        android:textColor="@android:color/black"/>
                     <TextView
                         android:id="@+id/anyktama"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Medium Text"
                         style="@style/textViewStyle"
-                        android:textColor="@color/text_color"/>
+                        android:textColor="@android:color/black"/>
                 </TableRow>
                 <TableRow>
                     <TextView
@@ -82,14 +77,14 @@
                         android:layout_height="wrap_content"
                         android:text="@string/mail"
                         style="@style/textViewStyle"
-                        android:textColor="@color/text_color"/>
+                        android:textColor="@android:color/black"/>
                     <TextView
                         android:id="@+id/mail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Medium Text"
                         style="@style/textViewStyle"
-                        android:textColor="@color/text_color"/>
+                        android:textColor="@android:color/black"/>
                 </TableRow>
             </TableLayout>
             </LinearLayout>
@@ -131,7 +126,7 @@
                 android:text="@string/no_internet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"/>
             <TextView
                 android:layout_centerHorizontal="true"
@@ -140,7 +135,7 @@
                 android:text="@string/check_internet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
+                android:textColor="@android:color/black"
                 android:textSize="15sp"/>
             <Button
                 android:layout_centerHorizontal="true"
@@ -179,7 +174,7 @@
             android:layout_below="@+id/progress_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_color"
+            android:textColor="@android:color/black"
             android:textSize="16sp"
             android:text="@string/wait"
             android:layout_centerHorizontal="true"
@@ -193,16 +188,17 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/cpv_default_color"
             android:layout_below="@+id/statusBar"
             android:translationZ="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     </android.support.design.widget.AppBarLayout>
 </FrameLayout>

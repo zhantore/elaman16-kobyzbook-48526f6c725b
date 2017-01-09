@@ -3,15 +3,15 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/md_blue_500</item>
-        <item name="colorPrimaryDark">@color/md_blue_500</item>
-        <item name="colorAccent">@color/md_green_A700</item>
+        <item name="colorPrimary">@color/cpv_default_color</item>
+        <item name="colorPrimaryDark">@color/cpv_default_color</item>
+        <item name="colorAccent">@color/md_blue_100</item>
         <item name="colorControlHighlight">@color/md_green_500_25</item>​
-        <item name="colorControlNormal">@color/md_black_1000_50</item>
+        <item name="colorControlNormal">@color/cpv_default_color</item>
         <item name="colorSwitchThumbNormal">@color/md_grey_200</item>
         <item name="android:colorForeground">@color/md_black_1000_75</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="actionModeBackground">@color/md_blue_500</item>
+        <item name="actionModeBackground">@color/cpv_default_color</item>
         <item name="android:windowTranslucentNavigation">@bool/translucentNavigationBar</item>
         <item name="android:windowTranslucentStatus">@bool/translucentStatusBar</item>
 

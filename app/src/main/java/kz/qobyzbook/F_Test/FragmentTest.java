@@ -366,6 +366,7 @@ public class FragmentTest extends Fragment implements SwipeRefreshLayout.OnRefre
                     mSwipeRefreshLayout.setRefreshing(false);
                     hidePDialog();
                 }
+                hidePDialog();
             }
         });
         jsonArrayRequeste.setRetryPolicy(new DefaultRetryPolicy(7000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

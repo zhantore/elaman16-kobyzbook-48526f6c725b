@@ -65,7 +65,7 @@ public class FragmentAudioLesson extends Fragment {
         tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.text_color);
+                return getResources().getColor(R.color.white);
             }
         });
 //        tabs.setViewPager(pager);

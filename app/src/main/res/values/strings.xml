@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">KoobyzBook</string>
+    <string name="app_name">Kobyzbook</string>
 
     <!-- DataBase Name And Version -->
     <string name="DataBaseName_Version">1</string>
@@ -34,17 +34,18 @@
     <string name="develop">Develop</string>
     <string name="menu_header">menu header</string>
 
-    <string name="kirispe">Main page</string>
-    <string name="about_qobyz">About qobyz</string>
-    <string name="persons">Qobyzers</string>
+    <string name="kirispe">Introduction</string>
+    <string name="about_qobyz">About kobyz</string>
+    <string name="persons">Kobyz players</string>
     <string name="lessons">Lessons</string>
-    <string name="audio">Audio</string>
     <string name="beine_sabaqtar">Video lessons</string>
-    <string name="test">Test</string>
+    <string name="audio">Audio</string>
+    <string name="playlist">Playlist</string>
+    <string name="test">Quiz</string>
     <string name="autor">Author</string>
-    <string name="zhoba_turaly">About project</string>
-    <string name="settings">Settings</string>
+    <string name="zhoba_turaly">About the project</string>
     <string name="news">News</string>
+    <string name="settings">Settings</string>
 
     <array name="drawerIcons">
         <item>@drawable/ic_allsongs</item>
@@ -79,19 +80,20 @@
     <string name="currently_playing_extra_info">Extra info</string>
     <string name="play_pause">Play Pouse</string>
 
-    <string name="about_qobyz_a">About Qobyz1</string>
-    <string name="about_qobyz_b">About Qobyz2</string>
-    <string name="about_qobyz_c">About Qobyz3</string>
-    <string name="about_qobyz_d">About Qobyz4</string>
-    <string name="about_qobyz_e">About Qobyz5</string>
-    <string name="about_qobyz_f">About Qobyz6</string>
-    <string name="about_qobyz_g">About Qobyz7</string>
+    <string name="about_qobyz_a">Description of kobyz</string>
+    <string name="about_qobyz_b">The history of origin of kobyz</string>
+    <string name="about_qobyz_c">The etymology of kobyz</string>
+    <string name="about_qobyz_d">The typology of kobyz</string>
+    <string name="about_qobyz_e">The structure of kobyz</string>
+    <string name="about_qobyz_f">Playing kobyz</string>
+    <string name="about_qobyz_g">How kobyz is made</string>
+    <string name="about_qobyz_h">The study of kobyz(quotations)</string>
+    <string name="about_qobyz_i">Textbooks and scientific literature</string>
     <string name="error">Error when loading, plaease try latter</string>
     <string name="soon">Empty page</string>
     <string name="no_connect">No connect</string>
     <string name="count_kui"> songs</string>
     <string name="allsons">All songs</string>
-    <string name="playlist">Playlist</string>
     <string name="choose_app_theme">Choose App Theme</string>
     <string name="choose_app_theme_description">Press to change the primary, primary dark and accent colors</string>
     <string name="choose_theme_color">Choose Theme Color</string>

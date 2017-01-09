@@ -39,7 +39,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/gradient_header_background"
         android:minHeight="?attr/actionBarSize" />
 
     <android.support.v7.widget.Toolbar
@@ -47,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_below="@+id/statusBar"
-        android:background="?attr/colorPrimary"
+        android:background="@color/cpv_default_color"
         android:translationZ="0dp"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />

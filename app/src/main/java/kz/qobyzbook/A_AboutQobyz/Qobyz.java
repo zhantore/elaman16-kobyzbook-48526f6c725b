@@ -7,7 +7,7 @@ public class Qobyz {
 
     public Qobyz(){}
 
-    private String name,description;
+    private String name,description, photo, sphoto;
 
     public String getName() {
         return name;
@@ -23,5 +23,21 @@ public class Qobyz {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getSphoto() {
+        return sphoto;
+    }
+
+    public void setSphoto(String sphoto) {
+        this.sphoto = sphoto;
     }
 }

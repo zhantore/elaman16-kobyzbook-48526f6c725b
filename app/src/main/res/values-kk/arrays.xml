@@ -9,24 +9,41 @@
        <item>Қазақ</item>
     </string-array>
 
+    <!--<string-array name="lessons_array_en_" >-->
+        <!--<item>Video lesson</item>-->
+        <!--<item>Kui anyzy</item>-->
+        <!--<item>Adisteme</item>-->
+        <!--<item>Audio</item>-->
+        <!--<item>Note</item>-->
+        <!--<item>Used books</item>-->
+    <!--</string-array>-->
+
+    <!--<string-array name="lessons_array_kz_" >-->
+        <!--<item>Бейне сабақ</item>-->
+        <!--<item>Күй аңызы</item>-->
+        <!--<item>Әдістемелік нұсқау</item>-->
+        <!--<item>Аудио</item>-->
+        <!--<item>Нота</item>-->
+        <!--<item>Пайдаланылған әдебиеттер </item>-->
+    <!--</string-array>-->
+
+
     <string-array name="lessons_array_en" >
-        <item>Video lesson</item>
-        <item>Kui anyzy</item>
-        <item>Adisteme</item>
+        <item>Information</item>
+        <item>Video</item>
         <item>Audio</item>
-        <item>Note</item>
-        <item>Used books</item>
+        <item>Musical notes</item>
+        <item>Methodological instructions</item>
+        <item>Reference</item>
     </string-array>
 
     <string-array name="lessons_array_kz" >
-        <item>Бейне сабақ</item>
-        <item>Күй аңызы</item>
+        <item>Дерек</item>
+        <item>Көрсетілім (видео)</item>
+        <item>Тыңдалым (аудио)</item>
+        <item>Нотасы</item>
         <item>Әдістемелік нұсқау</item>
-        <item>Аудио</item>
-        <item>Нота</item>
         <item>Пайдаланылған әдебиеттер </item>
     </string-array>
-
-
 
 </resources>

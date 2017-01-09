@@ -55,7 +55,7 @@ public class FragmentSettings extends Fragment implements View.OnClickListener {
 //        switch (v.getId()) {
 //            case R.id.relativeLayoutChooseTheme:
 //                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                ColorChooserDialog dialog = new ColorChooserDialog();
+                ColorChooserDialog dialog = new ColorChooserDialog();
 //                dialog.setOnItemChoose(new ColorChooserDialog.OnItemChoose() {
 //                    @Override
 //                    public void onClick(int position) {

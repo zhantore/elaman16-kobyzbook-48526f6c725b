@@ -10,19 +10,44 @@
         <ScrollView
             android:paddingTop="?android:attr/actionBarSize"
             android:id="@+id/scrollView"
+            android:layout_marginBottom="65dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="60dp">
-                <TextView
+            android:layout_alignParentStart="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:id="@+id/imageView3"
+                    android:layout_alignParentTop="true" />
+
+                <WebView
                     android:padding="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
-                    android:id="@+id/tv_about_qobyz"/>
+                    android:id="@+id/tv_about_qobyz"
+                    android:layout_below="@+id/imageView3" />
+
+                <!--<TextView-->
+                    <!--android:padding="15dp"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:textAppearance="?android:attr/textAppearanceMedium"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:id="@+id/tv_about_qobyz"-->
+                    <!--android:layout_below="@+id/imageView3" />-->
+            </RelativeLayout>
         </ScrollView>
     </RelativeLayout>
 
@@ -88,7 +113,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:visibility="invisible"
+        android:visibility="gone"
         android:id="@+id/circle_bg"
         android:clickable="true"
         android:layout_width="match_parent"
@@ -122,13 +147,14 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/transparent"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
+        android:background="@color/cpv_default_color"
         android:layout_height="?attr/actionBarSize"
         android:layout_below="@+id/statusBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
     </android.support.design.widget.AppBarLayout>
 </FrameLayout>
