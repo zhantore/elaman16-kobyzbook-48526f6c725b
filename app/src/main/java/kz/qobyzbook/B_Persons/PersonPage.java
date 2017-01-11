@@ -279,7 +279,7 @@ public class PersonPage extends AppCompatActivity implements View.OnClickListene
             toolbar.setTitle(mBundle.getString("name"));
             tv_about_qobyz.loadData(mBundle.getString("description"), "text/html; charset=UTF-8", null);
 //            tv_about_qobyz.setText(Html.fromHtml(mBundle.getString("description")));
-            foto = convertURL(mBundle.getString("sphoto"));
+            foto = convertURL(mBundle.getString("photo"));
         }
         imageLoader.displayImage(foto, photo, options);
 
