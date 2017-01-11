@@ -20,6 +20,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +55,7 @@ public class FragmentAuthor extends Fragment {
         imageLoader = ImageLoader.getInstance();
         options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.bg_default_album_art)
                 .showImageForEmptyUri(R.drawable.bg_default_album_art).showImageOnFail(R.drawable.bg_default_album_art).cacheInMemory(true)
-                .cacheOnDisk(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
+                .cacheOnDisk(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2).build();
         makeJsonObjectRequest();
         return v;
     }
@@ -101,7 +102,7 @@ public class FragmentAuthor extends Fragment {
                                     +project.getGilim()+project.getShigarma()));
                             anyktama.setText(project.getAniktama());
                             mail.setText(project.getMail());
-                            imageLoader.displayImage(convertURL(project.getPhoto()), autorPhoto);
+                            imageLoader.displayImage(convertURL(project.getPhoto()), autorPhoto, options);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
