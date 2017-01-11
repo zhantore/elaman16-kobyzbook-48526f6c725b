@@ -7,16 +7,14 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.IOException;
 
 import kz.qobyzbook.R;
 
@@ -45,10 +43,10 @@ public class SplashActivity extends AppCompatActivity {
             textView.setText("Ұстазым – \n" +
                     "Әбдіманап Жұмабекұлына \n" +
                     "мың алғыс!\n");
-            imageView.setImageDrawable(getDrawable(R.drawable.kb_kaz));
+            imageView.setImageResource(R.drawable.kb_kaz);
         } else {
             textView.setText("I express my gratitude to my teacher \nAbdimanap Zhumabekuly!");
-            imageView.setImageDrawable(getDrawable(R.drawable.kb_en));
+            imageView.setImageResource(R.drawable.kb_en);
         }
 
         if ( !isOnline() ){

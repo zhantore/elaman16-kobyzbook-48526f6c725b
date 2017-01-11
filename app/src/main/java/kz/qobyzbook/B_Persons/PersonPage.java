@@ -36,6 +36,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -256,7 +257,7 @@ public class PersonPage extends AppCompatActivity implements View.OnClickListene
 
         options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.bg_default_album_art)
                 .showImageForEmptyUri(R.drawable.bg_default_album_art).showImageOnFail(R.drawable.bg_default_album_art).cacheInMemory(true)
-                .cacheOnDisk(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).build();
+                .cacheOnDisk(true).considerExifParams(true).bitmapConfig(Bitmap.Config.RGB_565).imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2).build();
 
         try {
             fab_button = (FloatingActionButton) findViewById(R.id.fab_button);
@@ -278,7 +279,7 @@ public class PersonPage extends AppCompatActivity implements View.OnClickListene
             toolbar.setTitle(mBundle.getString("name"));
             tv_about_qobyz.loadData(mBundle.getString("description"), "text/html; charset=UTF-8", null);
 //            tv_about_qobyz.setText(Html.fromHtml(mBundle.getString("description")));
-            foto = convertURL(mBundle.getString("photo"));
+            foto = convertURL(mBundle.getString("sphoto"));
         }
         imageLoader.displayImage(foto, photo, options);
 
