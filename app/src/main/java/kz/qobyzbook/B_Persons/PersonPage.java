@@ -282,6 +282,7 @@ public class PersonPage extends AppCompatActivity implements View.OnClickListene
             foto = convertURL(mBundle.getString("photo"));
         }
         imageLoader.displayImage(foto, photo, options);
+        photo.setVisibility(View.VISIBLE);
 
         //getDataFromServer();
     }
